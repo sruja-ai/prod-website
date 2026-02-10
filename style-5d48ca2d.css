@@ -1,5 +1,24 @@
 /* Sruja docs – custom overrides for a polished docs-site look */
 
+/* ---- Top nav: Sruja logo (links to home) ---- */
+.sruja-nav-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-end: 4px;
+}
+
+.sruja-nav-logo-img {
+  display: block;
+  height: 28px;
+  width: auto;
+}
+
+/* ---- Home page content logo ---- */
+.sruja-home-logo {
+  display: block;
+  margin-block-end: 1em;
+}
+
 /* ---- Typography & layout ---- */
 :root {
     --content-max-width: 820px;
@@ -133,6 +152,7 @@ html {
 .light #mdbook-menu-bar {
     border-block-end-color: hsl(36, 15%, 90%);
 }
+
 
 /* ---- Sidebar ---- */
 .chapter-item.active > .chapter-item-flex {
