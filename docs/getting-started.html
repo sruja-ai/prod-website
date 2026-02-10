@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Getting started (full) - Sruja</title>
+        <title>Getting started (full) - Sruja (beta)</title>
 
 
         <!-- Custom HTML head -->
@@ -27,7 +27,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../style-5d48ca2d.css">
+        <link rel="stylesheet" href="../style-40f3ebf4.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-c1773059.js";
+            window.path_to_searchindex_js = "../searchindex-61a68332.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-f200db4f.js"></script>
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">Sruja</h1>
+                    <h1 class="menu-title">Sruja (beta)</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -191,13 +191,17 @@ estimatedTime: "5 minutes"</a></h2>
 <p>Sruja allows you to define your software architecture as code. No more dragging boxes around. No more outdated PNGs on a wiki. <strong>You write code, Sruja draws the maps.</strong></p>
 <h2 id="1-installation"><a class="header" href="#1-installation">1. Installation</a></h2>
 <p>Install the Sruja CLI to compile, validate, and export your diagrams.</p>
-<h3 id="mac--linux"><a class="header" href="#mac--linux">Mac / Linux</a></h3>
+<h3 id="option-a--install-script-downloads-from-github-releases"><a class="header" href="#option-a--install-script-downloads-from-github-releases">Option A – install script (downloads from <a href="https://github.com/sruja-ai/sruja/releases">GitHub Releases</a>)</a></h3>
 <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/sruja-ai/sruja/main/scripts/install.sh | bash
 </code></pre>
-<h3 id="from-source-rust"><a class="header" href="#from-source-rust">From Source (Rust)</a></h3>
+<h3 id="option-b--from-git-requires-rust"><a class="header" href="#option-b--from-git-requires-rust">Option B – from Git (requires Rust)</a></h3>
+<pre><code class="language-bash">cargo install sruja-cli --git https://github.com/sruja-ai/sruja
+</code></pre>
+<h3 id="option-c--build-from-source"><a class="header" href="#option-c--build-from-source">Option C – build from source</a></h3>
 <pre><code class="language-bash">git clone https://github.com/sruja-ai/sruja.git &amp;&amp; cd sruja
 make build
 </code></pre>
+<p>Ensure the <code>sruja</code> binary is on your <code>PATH</code> (install script uses <code>~/.local/bin</code> by default).</p>
 <p><em>Verify installation:</em></p>
 <pre><code class="language-bash">sruja --version
 # Should output something like: sruja version v0.2.0
@@ -332,10 +336,10 @@ view index {
         <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../menu-bar-home-b0f680b0.js"></script>
+        <script src="../menu-bar-home-4c4b4f1f.js"></script>
         <script src="../mermaid-eefea253.min.js"></script>
         <script src="../mermaid-init-ccf746f1.js"></script>
-        <script src="../code-block-actions-12394e6f.js"></script>
+        <script src="../code-block-actions-4ed12467.js"></script>
         <script src="../google-analytics-544300b7.js"></script>
 
 

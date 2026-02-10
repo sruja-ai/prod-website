@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Lesson 2 - Sruja</title>
+        <title>Lesson 2 - Sruja (beta)</title>
 
 
         <!-- Custom HTML head -->
@@ -27,7 +27,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../../../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../../../style-5d48ca2d.css">
+        <link rel="stylesheet" href="../../../style-40f3ebf4.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -35,7 +35,7 @@
             const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../../searchindex-c1773059.js";
+            window.path_to_searchindex_js = "../../../searchindex-61a68332.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../../toc-f200db4f.js"></script>
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">Sruja</h1>
+                    <h1 class="menu-title">Sruja (beta)</h1>
 
                     <div class="right-buttons">
                         <a href="../../../print.html" title="Print this book" aria-label="Print this book">
@@ -224,10 +224,10 @@ cd shopify-lite
 </ul>
 <h2 id="2-installing-sruja"><a class="header" href="#2-installing-sruja">2. Installing Sruja</a></h2>
 <p>If you haven't already, install the Sruja CLI:</p>
-<pre><code class="language-bash"># Quick install
-curl -fsSL https://raw.githubusercontent.com/sruja-ai/sruja/main/scripts/install.sh | bash
+<pre><code class="language-bash"># From Git (requires Rust)
+cargo install sruja-cli --git https://github.com/sruja-ai/sruja
 
-# Or from source: cargo install --path crates/sruja-cli (from repo root)
+# Or build from source: git clone https://github.com/sruja-ai/sruja.git &amp;&amp; cd sruja &amp;&amp; make build
 
 # Verify installation
 sruja --version
@@ -436,9 +436,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Sruja
-        run: |
-          curl -fsSL https://raw.githubusercontent.com/sruja-ai/sruja/main/scripts/install.sh | bash
-          echo "$HOME/go/bin" &gt;&gt; $GITHUB_PATH
+        run: cargo install sruja-cli --git https://github.com/sruja-ai/sruja --locked
       - name: Validate Architecture
         run: sruja lint architecture/main.sruja
       - name: Generate Docs
@@ -529,10 +527,10 @@ jobs:
         <script src="../../../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../../../menu-bar-home-b0f680b0.js"></script>
+        <script src="../../../menu-bar-home-4c4b4f1f.js"></script>
         <script src="../../../mermaid-eefea253.min.js"></script>
         <script src="../../../mermaid-init-ccf746f1.js"></script>
-        <script src="../../../code-block-actions-12394e6f.js"></script>
+        <script src="../../../code-block-actions-4ed12467.js"></script>
         <script src="../../../google-analytics-544300b7.js"></script>
 
 
