@@ -27,7 +27,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../style-40f3ebf4.css">
+        <link rel="stylesheet" href="../style-6e6b2cea.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-61a68332.js";
+            window.path_to_searchindex_js = "../searchindex-604652c3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-f200db4f.js"></script>
@@ -180,68 +180,7 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <hr>
-<p>title: "Email Notification System: Build Async Processor"
-summary: "Your app sends too many emails synchronously, causing slow responses! Create an async email processing system with a queue and worker to handle notifications in the background."
-difficulty: intermediate
-topic: async
-estimatedTime: "10-15 min"
-initialDsl: |
-person = kind "Person"
-system = kind "System"
-container = kind "Container"
-component = kind "Component"
-queue = kind "Queue"</p>
-<p>App = system "App" {
-API = container "Main API" {
-// TODO: Add component EmailWorker "Email Processor" here
-}
-EmailQueue = queue "RabbitMQ"
-}</p>
-<p>// TODO: Connect App.EmailQueue -&gt; App.API.EmailWorker for async processing
-// TODO: Add external EmailService system with tags and connect App.API.EmailWorker -&gt; EmailService
-checks:</p>
-<ul>
-<li>type: noErrors
-message: "DSL parsed successfully"</li>
-<li>type: elementExists
-name: EmailWorker
-message: "Create EmailWorker component"</li>
-<li>type: relationExists
-source: EmailQueue
-target: EmailWorker
-message: "Connect EmailQueue -&gt; EmailWorker"</li>
-<li>type: elementExists
-name: EmailService
-message: "Add external EmailService"</li>
-<li>type: relationExists
-source: EmailWorker
-target: EmailService
-message: "Connect EmailWorker -&gt; EmailService"
-hints:</li>
-<li>'Add component EmailWorker "Email Processor" inside the API container'</li>
-<li>'Queues deliver messages to workers: App.EmailQueue -&gt; App.API.EmailWorker "Delivers email job"'</li>
-<li>'Add external EmailService as a system with tags ["external"] outside the App system block'</li>
-<li>'Worker sends emails: App.API.EmailWorker -&gt; EmailService "Sends email"'
-solution: |
-person = kind "Person"
-system = kind "System"
-container = kind "Container"
-component = kind "Component"
-queue = kind "Queue"</li>
-</ul>
-<p>App = system "App" {
-API = container "Main API" {
-EmailWorker = component "Email Processor"
-}
-EmailQueue = queue "RabbitMQ"
-}</p>
-<p>EmailService = system "SendGrid" {
-tags ["external"]
-}</p>
-<h2 id="appemailqueue---appapiemailworker-delivers-email-job-appapiemailworker---emailservice-sends-email"><a class="header" href="#appemailqueue---appapiemailworker-delivers-email-job-appapiemailworker---emailservice-sends-email">App.EmailQueue -&gt; App.API.EmailWorker "Delivers email job"
-App.API.EmailWorker -&gt; EmailService "Sends email"</a></h2>
-
+                        
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -295,9 +234,11 @@ App.API.EmailWorker -&gt; EmailService "Sends email"</a></h2>
         <!-- Custom JS scripts -->
         <script src="../menu-bar-home-4c4b4f1f.js"></script>
         <script src="../mermaid-eefea253.min.js"></script>
-        <script src="../mermaid-init-ccf746f1.js"></script>
-        <script src="../code-block-actions-4ed12467.js"></script>
+        <script src="../mermaid-init-fc5b08eb.js"></script>
+        <script src="../code-block-actions-6c203224.js"></script>
         <script src="../google-analytics-544300b7.js"></script>
+        <script src="../progress-tracker-cb047100.js"></script>
+        <script src="../quiz-helper-c6714342.js"></script>
 
 
 
