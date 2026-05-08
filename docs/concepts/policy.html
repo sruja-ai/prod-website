@@ -3,12 +3,12 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Policy - Sruja – Architecture intelligence for the AI era.</title>
+        <title>Policy - Sruja – Context engineering for the AI era.</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Architecture intelligence for the AI era. Define, validate, and export architecture as code with CLI and VS Code.">
+        <meta name="description" content="Context engineering for the AI era. Define, validate, and export architecture as code with CLI and VS Code.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -35,7 +35,7 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-47a0c38a.js";
+            window.path_to_searchindex_js = "../../searchindex-4f0eef74.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc-4ef37301.js"></script>
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">Sruja – Architecture intelligence for the AI era.</h1>
+                    <h1 class="menu-title">Sruja – Context engineering for the AI era.</h1>
 
                     <div class="right-buttons">
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -183,16 +183,21 @@
                         <h1 id="policy"><a class="header" href="#policy">Policy</a></h1>
 <p>Policies define architectural rules, standards, and constraints that your system must follow. They help enforce best practices, compliance requirements, and organizational standards directly in your architecture model.</p>
 <h2 id="syntax"><a class="header" href="#syntax">Syntax</a></h2>
-<pre><code class="language-sruja">&lt;!-- partial --&gt;
-PolicyID = policy "Description" {
-  category "category-name"
-  enforcement "required" // "required" | "recommended" | "optional"
-  description "Detailed description"
-  metadata {
-    // Additional metadata
-  }
+<pre><code class="language-sruja">PolicyID = policy "Short policy statement" {
+  category "security"
+  enforcement "required"
+  description "Explain intent, scope, and rationale. Rules below are what get evaluated."
+  rule deny edge from { kind "external_api" } to { kind "database" }
 }
 </code></pre>
+<h2 id="writing-strong-policies"><a class="header" href="#writing-strong-policies">Writing strong policies</a></h2>
+<ul>
+<li>Make the title a testable statement ("DBs must be encrypted at rest")</li>
+<li>Set <code>category</code> so policies can be grouped (security, compliance, performance, data, observability)</li>
+<li>Pick <code>enforcement</code> based on impact (<code>required</code> for must-fix, <code>recommended</code> for should-fix, <code>optional</code> for guidance)</li>
+<li>Encode enforcement using <code>rule ...</code> entries so <code>sruja lint</code> can evaluate them</li>
+<li>Use <code>except ...</code> to record deliberate exceptions instead of relying on tribal knowledge</li>
+</ul>
 <h2 id="simple-policy"><a class="header" href="#simple-policy">Simple Policy</a></h2>
 <pre><code class="language-sruja">import { * } from 'sruja.ai/stdlib'
 
@@ -208,12 +213,18 @@ view index {
 <li><strong><code>ID</code></strong>: Unique identifier for the policy (e.g., <code>SecurityPolicy</code>, <code>GDPR_Compliance</code>)</li>
 <li><strong><code>Description</code></strong>: Human-readable description of the policy</li>
 <li><strong><code>category</code></strong> (optional): Policy category (e.g., "security", "compliance", "performance")</li>
-<li><strong><code>enforcement</code></strong> (optional): Enforcement level ("required", "recommended", "optional")</li>
+<li><strong><code>enforcement</code></strong> (optional): Enforcement level (<code>required</code> | <code>recommended</code> | <code>optional</code>). Synonyms are accepted: <code>error</code>/<code>warn</code>/<code>info</code>.</li>
 <li><strong><code>description</code></strong> (optional): Detailed description within the policy body</li>
-<li><strong><code>metadata</code></strong> (optional): Additional metadata key-value pairs</li>
+<li><strong>Defaults</strong>: <code>category</code> defaults to <code>general</code>, <code>enforcement</code> defaults to <code>warn</code></li>
+</ul>
+<h2 id="editor-and-ci-integration"><a class="header" href="#editor-and-ci-integration">Editor and CI integration</a></h2>
+<ul>
+<li>The VS Code extension surfaces policy nodes in the outline and shows lint violations as diagnostics.</li>
+<li>CI and CLI checks (lint/drift/compliance) treat <code>enforcement</code> as severity (<code>required</code> → error, <code>recommended</code> → warning, <code>optional</code> → info).</li>
 </ul>
 <h2 id="example-security-policies"><a class="header" href="#example-security-policies">Example: Security Policies</a></h2>
-<pre><code class="language-sruja">import { * } from 'sruja.ai/stdlib'
+<pre><code class="language-sruja">// partial
+import { * } from 'sruja.ai/stdlib'
 
 
 TLSEnforcement = policy "All external communications must use TLS 1.3" {
@@ -278,8 +289,87 @@ view index {
 <li><strong>Compliance</strong>: Track regulatory and organizational requirements</li>
 <li><strong>Governance</strong>: Enforce architectural decisions and patterns</li>
 </ul>
-<h2 id="note-on-rules"><a class="header" href="#note-on-rules">Note on Rules</a></h2>
-<p>The <code>rule</code> keyword inside policies is not yet implemented. For now, policies serve as documentation and can be validated manually or through external tooling.</p>
+<h2 id="policy-rules"><a class="header" href="#policy-rules">Policy Rules</a></h2>
+<p>Policies can include <strong>structured rules</strong> that are evaluated by the rule engine (deterministic; no ad-hoc phrase parsing).</p>
+<h3 id="selectors"><a class="header" href="#selectors">Selectors</a></h3>
+<p>Policy rules match elements using <strong>selectors</strong>:</p>
+<pre><code class="language-sruja">// partial
+{ 
+  kind "database"
+  id "Shop.DB"
+  tag "production"
+  technology "PostgreSQL"
+  meta "owner" "team-payments"
+}
+</code></pre>
+<p>Supported selector fields:</p>
+<ul>
+<li><code>kind "..."</code> — element kind (normalized: lowercase; spaces/hyphens become underscores)</li>
+<li><code>id "..."</code> — element id (fully-qualified like <code>Shop.DB</code> or leaf id like <code>DB</code>)</li>
+<li><code>tag "..."</code> — required tag (can also be written as <code>#tag</code> / <code>@tag</code> on elements)</li>
+<li><code>technology "..."</code> — matches <code>technology "..."</code> on elements</li>
+<li><code>meta "key" "value"</code> — matches <code>metadata { key "value" }</code> on elements (value match is case-insensitive)</li>
+</ul>
+<h3 id="deny-edge"><a class="header" href="#deny-edge"><code>deny edge</code></a></h3>
+<p>Deny a class of edges by matching source and target selectors:</p>
+<pre><code class="language-sruja">NoExtToDb = policy "External APIs must not call databases" {
+  category "security"
+  enforcement "required"
+  rule deny edge from { kind "external_api" } to { kind "database" }
+}
+</code></pre>
+<p>When you run <code>sruja lint</code> or drift/compliance checks, the rule engine evaluates each edge in the graph; if an edge matches (source selector → target selector), a policy violation is reported.</p>
+<p>You can also add:</p>
+<ul>
+<li><code>except from { ... } to { ... }</code> — allow a specific edge pattern</li>
+<li><code>message "..."</code> — override the default violation message</li>
+<li><code>suggest "..."</code> — add one or more suggestions (repeatable)</li>
+</ul>
+<pre><code class="language-sruja">NoServiceToDb = policy "Services must not call DBs" {
+  enforcement "required"
+  rule deny edge
+    from { kind "service" }
+    to { kind "database" }
+    except from { id "Checkout" } to { id "PaymentsDb" }
+    message "Direct DB access is forbidden"
+    suggest "Route via an API"
+    suggest "If intentional, add an exception"
+}
+</code></pre>
+<h3 id="require-tags"><a class="header" href="#require-tags"><code>require tags</code></a></h3>
+<p>Require one or more tags to exist on matched elements:</p>
+<pre><code class="language-sruja">EncryptionPolicy = policy "DBs must be encrypted" {
+  enforcement "required"
+  rule require tags on { kind "database" } tags ["encrypted"]
+}
+</code></pre>
+<p>Optional tail items:</p>
+<ul>
+<li><code>except { ... }</code> — exclude elements matching a selector</li>
+<li><code>message "..."</code> / <code>suggest "..."</code> — same as <code>deny edge</code></li>
+</ul>
+<h3 id="require-metadata"><a class="header" href="#require-metadata"><code>require metadata</code></a></h3>
+<p>Require a metadata key (and optionally a specific value) on matched elements:</p>
+<pre><code class="language-sruja">OwnershipPolicy = policy "Containers must declare owners" {
+  enforcement "recommended"
+  rule require metadata on { kind "container" } key "owner"
+}
+</code></pre>
+<p>With a required value:</p>
+<pre><code class="language-sruja">EnvPolicy = policy "Production containers must declare environment" {
+  enforcement "required"
+  rule require metadata on { kind "container" tag "production" } key "environment" value "prod"
+}
+</code></pre>
+<h3 id="require-slo"><a class="header" href="#require-slo"><code>require slo</code></a></h3>
+<p>Require an <code>slo { ... }</code> block on matched elements:</p>
+<pre><code class="language-sruja">SloPolicy = policy "Production containers must have SLOs" {
+  enforcement "required"
+  rule require slo on { kind "container" tag "production" }
+}
+</code></pre>
+<h3 id="evaluation"><a class="header" href="#evaluation">Evaluation</a></h3>
+<p>Policy evaluation is <strong>rule-based</strong>: the DSL is the way you author rules, and the evaluator runs them deterministically over the architecture graph. Policy titles/descriptions document intent; only <code>rule ...</code> entries are evaluated.</p>
 <h2 id="see-also"><a class="header" href="#see-also">See Also</a></h2>
 <ul>
 <li><a href="docs/concepts/architecture.html">Architecture</a></li>

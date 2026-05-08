@@ -3,12 +3,12 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Getting started (full) - Sruja – Architecture intelligence for the AI era.</title>
+        <title>Getting started (full) - Sruja – Context engineering for the AI era.</title>
 
 
         <!-- Custom HTML head -->
 
-        <meta name="description" content="Architecture intelligence for the AI era. Define, validate, and export architecture as code with CLI and VS Code.">
+        <meta name="description" content="Context engineering for the AI era. Define, validate, and export architecture as code with CLI and VS Code.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-47a0c38a.js";
+            window.path_to_searchindex_js = "../searchindex-4f0eef74.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-4ef37301.js"></script>
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">Sruja – Architecture intelligence for the AI era.</h1>
+                    <h1 class="menu-title">Sruja – Context engineering for the AI era.</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -375,11 +375,14 @@ MyApp.Worker -&gt; MyApp.Database "SQL queries"
 </thead>
 <tbody>
 <tr><td><strong>Analyze code</strong></td><td><code>sruja discover --context -r . --format json</code></td></tr>
+<tr><td><strong>Generate baseline</strong></td><td><code>sruja quickstart -r . --generate-baseline</code></td></tr>
 <tr><td><strong>Validate</strong></td><td><code>sruja lint repo.sruja</code></td></tr>
+<tr><td><strong>Refresh evidence</strong></td><td><code>sruja sync -r .</code></td></tr>
+<tr><td><strong>Repo health</strong></td><td><code>sruja status -r .</code></td></tr>
 <tr><td><strong>Export Markdown</strong></td><td><code>sruja export markdown repo.sruja &gt; doc.md</code></td></tr>
 <tr><td><strong>Export Mermaid</strong></td><td><code>sruja export mermaid repo.sruja &gt; diagram.mmd</code></td></tr>
 <tr><td><strong>Export JSON</strong></td><td><code>sruja export json repo.sruja &gt; arch.json</code></td></tr>
-<tr><td><strong>Check drift</strong></td><td><code>sruja drift -r . --format json</code></td></tr>
+<tr><td><strong>Check drift</strong></td><td><code>sruja drift -r . -a repo.sruja --format json</code></td></tr>
 </tbody>
 </table>
 </div>
