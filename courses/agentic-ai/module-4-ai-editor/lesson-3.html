@@ -14,8 +14,8 @@
 
         <link rel="shortcut icon" href="../../../favicon-a307c707.png">
         <link rel="stylesheet" href="../../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../../css/general-2459343d.css">
-        <link rel="stylesheet" href="../../../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../../../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../../../css/chrome-fc474251.css">
         <link rel="stylesheet" href="../../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../../searchindex-b201c992.js";
+            window.path_to_searchindex_js = "../../../searchindex-101ea6d2.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../toc-31fff2f4.js"></script>
+        <script src="../../../toc-449dcb4c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -239,6 +239,13 @@ AI with context: [checks against policies, finds issues]
 2. New dependency creates circular reference with BillingService
 3. Missing required 'tech' field in container definition"
 </code></pre>
+<h3 id="pattern-6-ask-the-host-to-query-lineage-mcp"><a class="header" href="#pattern-6-ask-the-host-to-query-lineage-mcp">Pattern 6: Ask the host to query lineage (MCP)</a></h3>
+<p>When the Sruja MCP server is connected, the model can pull <strong>in-repo traces</strong> without guessing:</p>
+<ul>
+<li><strong><code>sruja_get_context_events</code></strong> — recent rows from <code>.sruja/context_events.jsonl</code> (after <code>intent check</code>, <code>drift</code>, or a merged proposal).</li>
+<li><strong><code>sruja_get_agent_learnings</code></strong> — <code>AgenticMemory</code> entries tied to an <strong>element id</strong> (same idea as “memory hits” in <code>sruja focus</code> JSON).</li>
+</ul>
+<p>Use these before risky edits: they surface prior guardrails and verification history the same way a human would scan Slack—except here it is structured and local to the repo. Full parameter list: <a href="../../../../../docs/mcp_tools_reference.html#context-engineering-scores-and-briefings">mcp_tools_reference.md</a>.</p>
 <h2 id="effective-prompts-for-architecture-context"><a class="header" href="#effective-prompts-for-architecture-context">Effective Prompts for Architecture Context</a></h2>
 <div class="table-wrapper">
 <table>
@@ -330,12 +337,20 @@ sruja drift -r . -a repo.sruja
 sruja impact ComponentName -r . --depth 3
 </code></pre>
 </li>
+<li>
+<p><strong>Optional — with MCP, ask for lineage before a large change:</strong></p>
+<ul>
+<li><code>sruja_get_agent_learnings</code> for your target <strong>element id</strong></li>
+<li><code>sruja_get_context_events</code> with a small <code>limit</code> to see recent intent/drift/proposal events</li>
+</ul>
+</li>
 </ol>
 <h2 id="learning-outcomes"><a class="header" href="#learning-outcomes">Learning Outcomes</a></h2>
 <ul>
 <li>✅ Apply architecture-aware AI interaction patterns</li>
 <li>✅ Use AI to explore and understand architecture</li>
 <li>✅ Validate AI suggestions with Sruja commands</li>
+<li>✅ Use <strong>MCP lineage tools</strong> (<code>sruja_get_context_events</code>, <code>sruja_get_agent_learnings</code>) when available</li>
 <li>✅ Avoid common anti-patterns in AI-assisted development</li>
 </ul>
 <h2 id="quiz-test-your-understanding"><a class="header" href="#quiz-test-your-understanding">Quiz: Test Your Understanding</a></h2>
@@ -354,13 +369,18 @@ D) It's not necessary</p>
 B) <code>sruja context</code>
 C) <code>sruja impact</code>
 D) <code>sruja drift</code></p>
+<h3 id="q4-which-mcp-tools-surface-in-repo-lineage-for-an-ai-session"><a class="header" href="#q4-which-mcp-tools-surface-in-repo-lineage-for-an-ai-session">Q4: Which MCP tools surface in-repo lineage for an AI session?</a></h3>
+<p>A) <code>sruja_get_repomap</code> and <code>sruja_bm25_search</code>
+B) <code>sruja_get_context_events</code> and <code>sruja_get_agent_learnings</code>
+C) <code>sruja_add_element</code> and <code>sruja_commit_evolution</code>
+D) <code>sruja_validate_change</code> only</p>
 <h2 id="module-complete"><a class="header" href="#module-complete">Module Complete!</a></h2>
 <p>You've completed the AI Editor Integration module. You now understand:</p>
 <ul>
 <li>✅ Setting up Sruja MCP server</li>
 <li>✅ Building architecture context for AI</li>
-<li>✅ Using context-driven AI assistance</li>
-<li>✅ Effective AI pair programming patterns</li>
+<li>✅ Using context-driven AI assistance (including <strong>git-range focus</strong> and <strong>on-disk lineage</strong>)</li>
+<li>✅ Effective AI pair programming patterns (including <strong>MCP lineage queries</strong>)</li>
 </ul>
 <p>This module completes the Agentic AI course with practical AI editor integration skills.</p>
 
@@ -372,7 +392,7 @@ D) <code>sruja drift</code></p>
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../../../courses/advanced-architects/course-overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../courses/agentic-ai/module-4-ai-editor/lesson-4-grounded-harness.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -386,7 +406,7 @@ D) <code>sruja drift</code></p>
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../../../courses/advanced-architects/course-overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../courses/agentic-ai/module-4-ai-editor/lesson-4-grounded-harness.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -408,11 +428,11 @@ D) <code>sruja drift</code></p>
 
         <script src="../../../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../../../mark-09e88c2c.min.js"></script>
-        <script src="../../../searcher-c2a407aa.js"></script>
+        <script src="../../../searcher-09f2665d.js"></script>
 
         <script src="../../../clipboard-1626706a.min.js"></script>
         <script src="../../../highlight-abc7f01d.js"></script>
-        <script src="../../../book-a0b12cfe.js"></script>
+        <script src="../../../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../../../menu-bar-home-b0f680b0.js"></script>

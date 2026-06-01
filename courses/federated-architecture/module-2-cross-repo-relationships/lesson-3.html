@@ -14,8 +14,8 @@
 
         <link rel="shortcut icon" href="../../../favicon-a307c707.png">
         <link rel="stylesheet" href="../../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../../css/general-2459343d.css">
-        <link rel="stylesheet" href="../../../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../../../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../../../css/chrome-fc474251.css">
         <link rel="stylesheet" href="../../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../../searchindex-b201c992.js";
+            window.path_to_searchindex_js = "../../../searchindex-101ea6d2.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../toc-31fff2f4.js"></script>
+        <script src="../../../toc-449dcb4c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -183,7 +183,8 @@
                         <h1 id="lesson-3-ownership--contracts"><a class="header" href="#lesson-3-ownership--contracts">Lesson 3: Ownership &amp; Contracts</a></h1>
 <h2 id="tracking-ownership"><a class="header" href="#tracking-ownership">Tracking Ownership</a></h2>
 <p>Every component should have an owner:</p>
-<pre><code class="language-sruja">UserService = system "User Service" {
+<pre><code class="language-sruja">&lt;!-- partial --&gt;
+UserService = system "User Service" {
   owner "platform-team"
 
   UserAPI = container "User API" {
@@ -199,7 +200,8 @@
 </code></pre>
 <h2 id="contract-exposure"><a class="header" href="#contract-exposure">Contract Exposure</a></h2>
 <p>Expose interfaces for other teams:</p>
-<pre><code class="language-sruja">// In user-service/repo.sruja
+<pre><code class="language-sruja">&lt;!-- partial --&gt;
+// In user-service/repo.sruja
 contract UserServiceContract {
   version "2.0.0"
   owner "platform-team"
@@ -233,7 +235,8 @@ UserAPI {
 }
 </code></pre>
 <h2 id="consuming-contracts"><a class="header" href="#consuming-contracts">Consuming Contracts</a></h2>
-<pre><code class="language-sruja">// In order-service/repo.sruja
+<pre><code class="language-sruja">&lt;!-- partial --&gt;
+// In order-service/repo.sruja
 import { UserServiceContract } from "./bundles/user-service.bundle.json"
 
 OrderProcessor = container "Order Processor" {
@@ -245,7 +248,8 @@ OrderProcessor = container "Order Processor" {
 }
 </code></pre>
 <h2 id="sla-tracking"><a class="header" href="#sla-tracking">SLA Tracking</a></h2>
-<pre><code class="language-sruja">UserAPI {
+<pre><code class="language-sruja">&lt;!-- partial --&gt;
+UserAPI {
   sla {
     availability "99.9%"
     latency_p99 "100ms"
@@ -381,11 +385,11 @@ D) <code>sruja check</code></p>
 
         <script src="../../../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../../../mark-09e88c2c.min.js"></script>
-        <script src="../../../searcher-c2a407aa.js"></script>
+        <script src="../../../searcher-09f2665d.js"></script>
 
         <script src="../../../clipboard-1626706a.min.js"></script>
         <script src="../../../highlight-abc7f01d.js"></script>
-        <script src="../../../book-a0b12cfe.js"></script>
+        <script src="../../../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../../../menu-bar-home-b0f680b0.js"></script>

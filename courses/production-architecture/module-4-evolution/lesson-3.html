@@ -14,8 +14,8 @@
 
         <link rel="shortcut icon" href="../../../favicon-a307c707.png">
         <link rel="stylesheet" href="../../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../../css/general-2459343d.css">
-        <link rel="stylesheet" href="../../../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../../../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../../../css/chrome-fc474251.css">
         <link rel="stylesheet" href="../../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../../searchindex-b201c992.js";
+            window.path_to_searchindex_js = "../../../searchindex-101ea6d2.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../../toc-31fff2f4.js"></script>
+        <script src="../../../toc-449dcb4c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -223,21 +223,26 @@ sruja drift -r . --fix
 # Show blast radius of changes
 sruja impact &lt;component&gt; -r . --depth 3
 </code></pre>
-<h2 id="agentic-memory-v0370"><a class="header" href="#agentic-memory-v0370">Agentic Memory (v0.37.0)</a></h2>
-<p>From v0.37.0, Sruja includes <strong>agentic memory</strong>—autonomous optimization that learns from past decisions:</p>
-<pre><code class="language-bash"># Enable autonomous mode
-sruja agent run -r . --autonomous
+<h2 id="agentic-memory-and-bounded-agent-loop"><a class="header" href="#agentic-memory-and-bounded-agent-loop">Agentic memory and bounded agent loop</a></h2>
+<p>Sruja records <strong>architecture-bounded learnings</strong> in <code>.sruja/agent_memory.json</code> and supports a <strong>review-before-apply</strong> agent loop. Sruja is a harness—not a full autonomous coding agent; your editor or CI hosts the LLM.</p>
+<pre><code class="language-bash"># Emit a reviewable plan grounded in repo evidence
+sruja agent plan -r . --goal "Reduce drift on API layer" --file src/api/main.rs --print
 
-# Review agent suggestions
-sruja agent review -r .
+# After human or CI review, apply the plan
+sruja agent apply -r . --plan docs/plans/&lt;run-id&gt;.json
+
+# Optional: parallel sandbox trajectories (MaTTS) when worktrees are available
+sruja agent run -r . --goal "..." --file src/api/main.rs --mode apply --trajectories 3
+
+# Inspect and curate learnings
+sruja agent history -r .
+sruja agent curate -r .
 </code></pre>
-<p>The agent:</p>
-<ul>
-<li>Remembers past architectural decisions</li>
-<li>Learns from team preferences</li>
-<li>Proposes optimizations based on patterns</li>
-<li>Evaluates fitness of changes before applying</li>
-</ul>
+<p>Enable automatic learning capture in <code>.sruja/config.toml</code>:</p>
+<pre><code class="language-toml">[agent]
+auto_record_learnings = true
+</code></pre>
+<p>See <a href="../../../../docs/GROUNDED_HARNESS_AND_CONTINUAL_LEARNING.html">Grounded harness and continual learning</a> for the full host-vs-harness model.</p>
 <h2 id="integrating-into-cicd"><a class="header" href="#integrating-into-cicd">Integrating into CI/CD</a></h2>
 <pre><code class="language-yaml"># .github/workflows/evolution.yml
 - name: Check Architecture Health
@@ -311,11 +316,11 @@ sruja agent review -r .
 
         <script src="../../../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../../../mark-09e88c2c.min.js"></script>
-        <script src="../../../searcher-c2a407aa.js"></script>
+        <script src="../../../searcher-09f2665d.js"></script>
 
         <script src="../../../clipboard-1626706a.min.js"></script>
         <script src="../../../highlight-abc7f01d.js"></script>
-        <script src="../../../book-a0b12cfe.js"></script>
+        <script src="../../../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../../../menu-bar-home-b0f680b0.js"></script>
